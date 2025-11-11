@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1a1a1a, #2b2b2b, #3d3d3d);
+  color: #fff;
+}
+
+/* Pantalla de la carta inicial */
+#carta-inicial {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #ff3c00, #ff8800);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 1s ease;
+}
+
+.sobre {
+  width: 300px;
+  height: 200px;
+  background: #202020;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(255, 100, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.5s, box-shadow 0.5s;
+  margin-bottom: 30px;
+  border: 2px solid #ff6600;
+}
+
+.sobre:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ffb300;
+}
+
+.sobre::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-bottom: 50px solid #ff6600;
+}
+
+.sobre h2 {
+  color: #fff;
+  font-size: 1.8em;
+  text-align: center;
+  text-shadow: 0 0 10px #ffb300;
+}
+
+.btn-abrir {
+  background: linear-gradient(90deg, #ff3c00, #ff8800);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(255, 100, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-abrir:hover {
+  background: linear-gradient(90deg, #ff6600, #ffaa00);
+  transform: translateY(-3px);
+}
+
+/* Contenido principal */
+#contenido-principal {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Contenedor general */
+.contenedor {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  padding: 20px;
+}
+
+/* Galería */
+.galeria {
+  position: relative;
+  width: 95%;
+  min-height: 95vh;
+  display: grid;
+  grid-template-areas: 
+    "esq-sup-izq superior-izq superior-centro superior-der esq-sup-der"
+    "izquierda-sup mensaje mensaje mensaje derecha-sup"
+    "izquierda-med mensaje mensaje mensaje derecha-med"
+    "izquierda-inf mensaje mensaje mensaje derecha-inf"
+    "esq-inf-izq inferior-izq inferior-centro inferior-der esq-inf-der";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  padding: 20px;
+}
+
+/* Mensaje central */
+.mensaje-central {
+  grid-area: mensaje;
+  text-align: center;
+  background: rgba(20,20,20,0.95);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 30px rgba(255, 100, 0, 0.4);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: latido 3s infinite ease-in-out;
+  border: 2px solid #ff6600;
+  backdrop-filter: blur(6px);
+}
+
+.mensaje-central h1 {
+  color: #ff8800;
+  font-size: 2.6em;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px #ffb300;
+}
+
+.mensaje-central h2 {
+  color: #ffa200;
+  margin-top: 20px;
+  font-size: 1.9em;
+  text-shadow: 0 0 10px #ff6600;
+}
+
+.mensaje-central p {
+  color: #f0f0f0;
+  margin: 8px 0;
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+.firma {
+  margin-top: 25px;
+  font-style: italic;
+  color: #ffb300;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Imágenes */
+.foto-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(255, 136, 0, 0.3);
+  transition: all 0.5s ease;
+  animation: aparecerFoto 1.5s ease-out both;
+  background-color: rgba(40, 40, 40, 0.8);
+  border: 1px solid #ff8800;
+}
+
+.foto-container:hover {
+  transform: scale(1.1) rotate(2deg);
+  box-shadow: 0 0 30px rgba(255, 170, 0, 0.7);
+  z-index: 5;
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+}
+
+/* Carros flotantes */
+.carro {
+  position: fixed;
+  color: #ffb300;
+  animation: subir 6s linear infinite;
+  font-size: 22px;
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Animaciones */
+@keyframes aparecerFoto {
+  0% { opacity: 0; transform: scale(0.8) rotate(-10deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes subir {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-800px) scale(0.8); opacity: 0; }
+}
+
+/* Bordes brillantes dinámicos */
+.mensaje-central::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 25px;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, #ff6600, #ffb300, #ff6600);
+  background-size: 300% 300%;
+  animation: bordeAnimado 5s linear infinite;
+  z-index: -1;
+}
+
+@keyframes bordeAnimado {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Brillo al pasar fotos */
+.foto-container:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  animation: brillo 1s ease;
+}
+
+@keyframes brillo {
+  from { opacity: 0; }
+  50% { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .galeria {
+    grid-template-areas: 
+      "superior-izq superior-centro superior-der"
+      "izquierda-sup mensaje derecha-sup"
+      "izquierda-med mensaje derecha-med"
+      "izquierda-inf mensaje derecha-inf"
+      "inferior-izq inferior-centro inferior-der";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .mensaje-central {
+    padding: 25px;
+  }
+
+  .mensaje-central h1 {
+    font-size: 2.2em;
+  }
+
+  .foto-container {
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .galeria {
+    grid-template-areas:
+      "mensaje mensaje"
+      "izquierda-sup derecha-sup"
+      "izquierda-med derecha-med"
+      "izquierda-inf derecha-inf"
+      "superior-izq superior-der"
+      "inferior-izq inferior-der";
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .mensaje-central {
+    padding: 20px;
+  }
+
+  .mensaje-central h1 {
+    font-size: 1.8em;
+  }
+
+  .foto {
+    object-fit: cover;
+  }
+}
+
+/* Efecto de fondo tipo carretera */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 100px
+  );
+  opacity: 0.1;
+  z-index: -2;
+  animation: movimientoCarretera 10s linear infinite;
+}
+
+@keyframes movimientoCarretera {
+  from { background-position-x: 0; }
+  to { background-position-x: 100%; }
+}
+
+/* Luz ambiental al fondo */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(255,136,0,0.1), transparent 70%);
+  z-index: -1;
+  animation: pulso 6s ease-in-out infinite;
+}
+
+@keyframes pulso {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
